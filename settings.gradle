@@ -1,4 +1,5 @@
-include ':app', ':appActividad1', ':appActividad2'
+include ':app', ':appActividad1', ':appActividad2', ':appActividad3'
 rootProject.name='U5T9HttpClient'
 project(':appActividad1').projectDir = new File('appActivity1')
 project(':appActividad2').projectDir = new File('appActivity2')
+project(':appActividad3').projectDir = new File('appActivity3')
