@@ -116,6 +116,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void cancelAsyncTask(GetHttpWeatherTask getHttpDataTask) {
+        progressTask.setVisibility(View.INVISIBLE);
+
+        if (getHttpDataTask != null) {
+            Log.i("cancel", "Status: " + getHttpDataTask.getStatus());
+            if ((getHttpDataTask.getStatus() == AsyncTask.Status.RUNNING) || (getHttpDataTask.getStatus() == AsyncTask.Status.PENDING)) {
+                Log.i("cancel", "The buton has pressed while the task is running");
+                getHttpDataTask.cancel(true);
+                Log.i("cancel", "The task have just cancelled.");
+            }
+        } else Log.i("cancel", "Not started");
+
+    }
+
     public boolean isNetworkAvailable() {
         boolean networkAvailable = false;
 
@@ -137,7 +151,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
 
         if (getHttpDataTask != null) {
-            getHttpDataTask.cancel(true);
+            cancelAsyncTask(getHttpDataTask);
+            cancelAsyncTask(getHttpWeatherTask);
             Log.e("onDestroy()", "ASYNCTASK was cancelled");
         } else {
             Log.e("onDestroy()", "ASYNCTASK = NULL, was not cancelled");
@@ -152,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         URL url;
         try {
             url = new URL(URL_WEATHER + "?lat=" + geonamesPlace.getLatitute() + "&lon=" + geonamesPlace.getLatitute() + "&APPID=" + APP_ID);
+            cancelAsyncTask(getHttpWeatherTask);
             getHttpWeatherTask = new GetHttpWeatherTask(geonamesPlace);
             getHttpWeatherTask.execute(url);
 
