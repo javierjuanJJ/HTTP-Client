@@ -1,2 +1,3 @@
-include ':app'
+include ':app', ':appActividad1'
 rootProject.name='U5T9HttpClient'
+project(':appActividad1').projectDir = new File('appActivity1')
