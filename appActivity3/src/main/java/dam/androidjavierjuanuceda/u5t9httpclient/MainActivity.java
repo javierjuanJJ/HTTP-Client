@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             } else
-                Toast.makeText(listView.getContext().getApplicationContext(), "Not possible to contact " + URL_GEONAMES, Toast.LENGTH_SHORT).show();
+                Toast.makeText(listView.getContext().getApplicationContext(), MainActivity.getMainActivity().getResources().getString(R.string.Error_network_connection) + URL_GEONAMES, Toast.LENGTH_SHORT).show();
 
 
             super.onPostExecute(searchResult);
