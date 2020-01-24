@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static class GetHttpWeatherTask extends AsyncTask<URL, Void, String> {
 
         private final int CONNECTION_TIMEOUT = 1000;
+        private static final double CELSIUS = 273.15;
         private final int READ_TIMEOUT = 1000;
         private GeonamesPlace geonamesPlace;
         private String search_Result_geonames;
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     JSONObject json = new JSONObject(resultStream);
                     searchResult += MainActivity.getMainActivity().getResources().getString(R.string.Weather_information) + String.format("%.2f", geonamesPlace.getLatitute()) + ", " + String.format("%.2f", geonamesPlace.getLongitude()) + "}" + System.lineSeparator();
                     JSONObject item = new JSONObject(json.getString("main"));
-                    searchResult += MainActivity.getMainActivity().getResources().getString(R.string.Temp) + ": " + String.format("%.0f", (item.getDouble("temp") - 273.15)) + " C" + System.lineSeparator() + MainActivity.getMainActivity().getResources().getString(R.string.Temp) + ": " + item.getString("humidity") + "%" + System.lineSeparator();
+                    searchResult += MainActivity.getMainActivity().getResources().getString(R.string.Temp) + ": " + String.format("%.0f", (item.getDouble("temp") - CELSIUS)) + " C" + System.lineSeparator() + MainActivity.getMainActivity().getResources().getString(R.string.Humidity) + ": " + item.getString("humidity") + "%" + System.lineSeparator();
                     JSONArray jArray = json.getJSONArray("weather");
                     item = jArray.getJSONObject(0);
                     searchResult += item.get("description");
