@@ -132,17 +132,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         GeonamesPlace geonamesPlace = listSearchResult.get(position);
+        if (!geonamesPlace.equals(new GeonamesPlace())) {
+            URL url;
+            try {
+                url = new URL(URL_WEATHER + "?lat=" + geonamesPlace.getLatitute() + "&lon=" + geonamesPlace.getLatitute() + "&APPID=" + APP_ID);
+                getHttpWeatherTask = new GetHttpWeatherTask(geonamesPlace);
+                getHttpWeatherTask.execute(url);
 
-        URL url;
-        try {
-            url = new URL(URL_WEATHER + "?lat=" + geonamesPlace.getLatitute() + "&lon=" + geonamesPlace.getLatitute() + "&APPID=" + APP_ID);
-            getHttpWeatherTask = new GetHttpWeatherTask(geonamesPlace);
-            getHttpWeatherTask.execute(url);
-
-        } catch (MalformedURLException e) {
-            Log.i("URL", e.getMessage());
+            } catch (MalformedURLException e) {
+                Log.i("URL", e.getMessage());
+            }
         }
-
     }
 
     private static class GetHttpWeatherTask extends AsyncTask<URL, Void, String> {

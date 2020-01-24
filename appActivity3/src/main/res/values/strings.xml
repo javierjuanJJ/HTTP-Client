@@ -7,4 +7,5 @@
     <string name="Humidity">HUMIDITY</string>
     <string name="Error_Write_a_place">Write a place to search</string>
     <string name="Error_network_connection">Sorry, network is not available</string>
+    <string name="No_information_found">No information found</string>
 </resources>
