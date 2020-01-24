@@ -104,24 +104,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void cancelAsyncTask(GetHttpDataTask getHttpDataTask) {
         progressTask.setVisibility(View.INVISIBLE);
-
+        AsyncTask.Status status;
         if (getHttpDataTask != null) {
-            Log.i("cancel", "Status: " + getHttpDataTask.getStatus());
-            if ((getHttpDataTask.getStatus() == AsyncTask.Status.RUNNING) || (getHttpDataTask.getStatus() == AsyncTask.Status.PENDING)) {
+            status = getHttpDataTask.getStatus();
+            Log.i("cancel", "Status: " + status);
+            if ((getHttpDataTask != null) && ((status == AsyncTask.Status.RUNNING) || (status == AsyncTask.Status.PENDING))) {
+
                 Log.i("cancel", "The buton has pressed while the task is running");
                 getHttpDataTask.cancel(true);
                 Log.i("cancel", "The task have just cancelled.");
             }
         } else Log.i("cancel", "Not started");
 
+
     }
 
     private void cancelAsyncTask(GetHttpWeatherTask getHttpDataTask) {
         progressTask.setVisibility(View.INVISIBLE);
-
+        AsyncTask.Status status;
         if (getHttpDataTask != null) {
-            Log.i("cancel", "Status: " + getHttpDataTask.getStatus());
-            if ((getHttpDataTask.getStatus() == AsyncTask.Status.RUNNING) || (getHttpDataTask.getStatus() == AsyncTask.Status.PENDING)) {
+            status = getHttpDataTask.getStatus();
+            Log.i("cancel", "Status: " + status);
+            if ((getHttpDataTask != null) && ((status == AsyncTask.Status.RUNNING) || (status == AsyncTask.Status.PENDING))) {
+
                 Log.i("cancel", "The buton has pressed while the task is running");
                 getHttpDataTask.cancel(true);
                 Log.i("cancel", "The task have just cancelled.");
@@ -194,15 +199,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if ((getStatus() == Status.RUNNING) || (getStatus() == Status.PENDING)) {
-                cancelAsyncTask(this);
-            }
-        }
-
-        private void cancelAsyncTask(GetHttpWeatherTask getHttpDataTask) {
-            Log.i("cancel", "The buton has pressed while the task is running");
-            getHttpDataTask.cancel(true);
-            Log.i("cancel", "The task have just cancelled.");
         }
 
         @SuppressLint("WrongThread")
@@ -247,9 +243,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
-            if ((getStatus() == Status.RUNNING) || (getStatus() == Status.PENDING)) {
-                cancelAsyncTask(this);
-            }
             MainActivity.getMainActivity().progressTask.setVisibility(View.VISIBLE);
         }
 
