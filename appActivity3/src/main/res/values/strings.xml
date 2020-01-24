@@ -2,4 +2,9 @@
     <string name="app_name">U5T9HttpClient</string>
     <string name="et_place_hint">Type a place to search</string>
     <string name="bt_search">Search to wikipedia</string>
+    <string name="Weather_information">Weather conditions for {</string>
+    <string name="Temp">TEMP</string>
+    <string name="Humidity">HUMIDITY</string>
+    <string name="Error_Write_a_place">Write a place to search</string>
+    <string name="Error_network_connection">Sorry, network is not available</string>
 </resources>

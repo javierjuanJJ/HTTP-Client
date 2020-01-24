@@ -97,8 +97,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (MalformedURLException e) {
                     Log.i("URL", e.getMessage());
                 }
-            } else Toast.makeText(this, "Write a place to search", Toast.LENGTH_SHORT).show();
-        } else Toast.makeText(this, "Sorry, network is not available", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(this, getString(R.string.Error_Write_a_place), Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, getString(R.string.Error_network_connection), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -218,9 +220,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     String resultStream = readStream(urlConnection.getInputStream());
                     JSONObject json = new JSONObject(resultStream);
-                    searchResult += "Weather conditions for {" + String.format("%.2f", geonamesPlace.getLatitute()) + ", " + String.format("%.2f", geonamesPlace.getLongitude()) + "}" + System.lineSeparator();
+                    searchResult += MainActivity.getMainActivity().getResources().getString(R.string.Weather_information) + String.format("%.2f", geonamesPlace.getLatitute()) + ", " + String.format("%.2f", geonamesPlace.getLongitude()) + "}" + System.lineSeparator();
                     JSONObject item = new JSONObject(json.getString("main"));
-                    searchResult += "TEMP : " + String.format("%.0f", (item.getDouble("temp") - 273.15)) + " C" + System.lineSeparator() + "HUMIDITY : " + item.getString("humidity") + "%" + System.lineSeparator();
+                    searchResult += MainActivity.getMainActivity().getResources().getString(R.string.Temp) + ": " + String.format("%.0f", (item.getDouble("temp") - 273.15)) + " C" + System.lineSeparator() + MainActivity.getMainActivity().getResources().getString(R.string.Temp) + ": " + item.getString("humidity") + "%" + System.lineSeparator();
                     JSONArray jArray = json.getJSONArray("weather");
                     item = jArray.getJSONObject(0);
                     searchResult += item.get("description");
